@@ -8,6 +8,8 @@ router.register('populars', PopularView)
 router.register('catalogs', CatalogView)
 router.register('comments', CommentHomePageView)
 router.register('reactions', ReactionView)
+router.register('about', AboutCompanyView)
+
 
 urlpatterns = [
     path('', include(router.urls)),

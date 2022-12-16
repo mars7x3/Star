@@ -38,3 +38,35 @@ class StarWork(models.Model):
 
     def __str__(self):
         return f'{self.id}. {self.star.name}'
+
+
+class Orders(models.Model):
+    star = models.ForeignKey(Star, on_delete=models.SET_NULL, null=True)
+    first_name = models.CharField(max_length=300)
+    last_name = models.CharField(max_length=300)
+    for_who = models.CharField(max_length=300)
+    phone = models.CharField(max_length=300)
+    email = models.CharField(max_length=300)
+    text = models.TextField()
+    price = models.DecimalField(max_digits=15, decimal_places=2)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f'{self.id}. {self.star.name}'
+
+
+class ToastCategory(models.Model):
+    title = models.CharField(max_length=200)
+    slug = models.CharField(max_length=200, unique=True, primary_key=True)
+
+    def __str__(self):
+        return self.title
+
+
+class Toast(models.Model):
+    title = models.CharField(max_length=300)
+    text = models.TextField()
+
+    def __str__(self):
+        return self.title
+

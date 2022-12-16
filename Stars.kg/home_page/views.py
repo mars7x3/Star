@@ -1,8 +1,8 @@
 from rest_framework import viewsets
 
-from home_page.models import Banner, Popular, Catalog, CommentHomePage, Reaction
+from home_page.models import Banner, Popular, Catalog, CommentHomePage, Reaction, AboutCompany
 from home_page.serializers import BannerSerializer, PopularSerializer, CatalogSerializer, HomeCommentSerializer, \
-    ReactionSerializer
+    ReactionSerializer, AboutCompanySerializer
 
 
 class BannerView(viewsets.ReadOnlyModelViewSet):
@@ -30,3 +30,6 @@ class ReactionView(viewsets.ReadOnlyModelViewSet):
     serializer_class = ReactionSerializer
 
 
+class AboutCompanyView(viewsets.ReadOnlyModelViewSet):
+    queryset = AboutCompany.objects.all()
+    serializer_class = AboutCompanySerializer

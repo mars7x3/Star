@@ -73,3 +73,11 @@ class Reaction(models.Model):
         ordering = ['custom_id']
 
 
+class AboutCompany(models.Model):
+    video = models.FileField(upload_to='about-video')
+    text = models.TextField()
+
+    def __str__(self):
+        return 'О нас'
+
+

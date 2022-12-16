@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from home_page.models import Banner, Popular, Catalog, CommentHomePage, Reaction
+from home_page.models import Banner, Popular, Catalog, CommentHomePage, Reaction, AboutCompany
 
 
 class BannerSerializer(serializers.ModelSerializer):
@@ -32,4 +32,9 @@ class ReactionSerializer(serializers.ModelSerializer):
         model = Reaction
         fields = '__all__'
 
+
+class AboutCompanySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = AboutCompany
+        fields = '__all__'
 
