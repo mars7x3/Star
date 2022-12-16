@@ -4,7 +4,7 @@ from rest_framework.pagination import PageNumberPagination
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from .models import Star, StarWork, StarComment, StarCategory, Toast, ToastCategory
+from .models import Star, StarWork, StarComment, StarCategory, Toast, ToastCategory, Orders
 from .serializers import StarCategorySerializer, StarSerializer, ToastCategorySerializer, ToastSerializer
 
 
@@ -80,3 +80,30 @@ class ToastNameAndIdView(APIView):
         for s in Toast.objects.all():
             star_list.append({s.id: s.name})
         return Response({'data': star_list}, status=status.HTTP_200_OK)
+
+
+class OrderCreateView(APIView):
+    def post(self, request):
+        request.data.get('')
+        Orders.objects.create(star=Star.objects.get(id=request.data.get('star')),
+                              first_name=request.data.get('first_name'),
+                              last_name=request.data.get('last_name'), for_who=request.data.get('for_who'),
+                              phone=request.data.get('phone'), email=request.data.get('email'),
+                              text=request.data.get('text'),
+                              price=request.data.get('price'))
+        return Response({"detail": "Success!"}, status=status.HTTP_200_OK)
+
+
+class StarSearchView(APIView):
+    def post(self, request):
+        data = Star.objects.filter(category__slug=request.data.get('category'))
+        serializer = StarSerializer(data, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+class ToastSearchView(APIView):
+    def post(self, request):
+        data = Toast.objects.filter(category__slug=request.data.get('category'))
+        serializer = ToastSerializer(data, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+

@@ -64,6 +64,7 @@ class ToastCategory(models.Model):
 
 
 class Toast(models.Model):
+    category = models.ForeignKey(ToastCategory, on_delete=models.SET_NULL, null=True)
     title = models.CharField(max_length=300)
     text = models.TextField()
 

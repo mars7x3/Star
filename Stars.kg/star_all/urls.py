@@ -12,5 +12,8 @@ urlpatterns = [
     path('', include(router.urls)),
     path('name-and-id/', StarNameAndIdView.as_view()),
     path('toast-and-id/', ToastNameAndIdView.as_view()),
+    path('order-create/', OrderCreateView.as_view()),
+    path('toast-search/', ToastSearchView.as_view()),
+    path('star-search/', StarSearchView.as_view()),
 
 ]
