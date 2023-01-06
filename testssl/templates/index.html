@@ -1,0 +1,231 @@
+<!doctype html>
+{% load static %}
+{% load i18n%}
+<!--[if IE 9 ]>
+<html lang='ru' class='no-js ie9'><![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!-->
+<html lang='ru' class='no-js'><!--<![endif]-->
+
+<!-- Mirrored from aic-qsoft.ru/ by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 05 May 2022 10:01:22 GMT -->
+<head>
+
+    <title>Epos Manas Journal</title>
+    <meta charset="utf-8"/>
+    <meta name="SKYPE_TOOLBAR" content="SKYPE_TOOLBAR_PARSER_COMPATIBLE"/>
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="viewport" content="width=device-width"/>
+    <link rel="preload" href="{% static 'img/bg0.jpg' %}" as="image">
+    <link rel="shortcut icon" href="favicon2a73.ico?v=02122016"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.3.3/css/swiper.css"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/7.4.1/swiper-bundle.min.js"></script>
+    <link rel="stylesheet" href="{% static 'build/stylesc655.css' %}"/>
+    <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css"
+    />
+    <script>
+        (function (f, b, g) {
+            var xo = g.prototype.open, xs = g.prototype.send, c;
+            f.hj = f.hj || function () {
+                    (f.hj.q = f.hj.q || []).push(arguments)
+                };
+            f._hjSettings = {hjid: 8367, hjsv: 2};
+
+
+            if (b.readyState === "interactive" || b.readyState === "complete" || b.readyState === "loaded") {
+                ls();
+            }
+            else {
+                if (b.addEventListener) {
+                    b.addEventListener("DOMContentLoaded", ls, false);
+                }
+            }
+            if (!f._hjPlayback && b.addEventListener) {
+                g.prototype.open = function (l, j, m, h, k) {
+                    this._u = j;
+                    xo.call(this, l, j, m, h, k)
+                };
+                g.prototype.send = function (e) {
+                    var j = this;
+
+                    function h() {
+                        if (j.readyState === 4) {
+                            f.hj("_xhr", j._u, j.status, j.response)
+                        }
+                    }
+
+                    this.addEventListener("readystatechange", h, false);
+                    xs.call(this, e)
+                };
+            }
+        })(window, document, window.XMLHttpRequest);
+
+    </script>
+    <script type="text/javascript">
+        (window.Image ? (new Image()) : document.createElement('img')).src = location.protocol + '//vk.com/rtrg?r=xQsCsnsVvY22SnCkLBAOgtGkWPeIY4fmINrLv/8hmGPqyLrwIkLSroaGWjnBl7NWgF5pR4X0T*waCIvQF9xZWNiECuVQZATJEyvRw9w6FO0*90Mr3aeEQ7wGtjuxwoyIp7H1bIaae8nmiWcrz*bUn4G8fUjOgEGyxtaN7hND/5k-&pixel_id=1000038845';
+    </script>
+</head>
+
+<body>
+
+<div id="d-wrap">
+
+    <div id="d-moon"></div>
+
+    <div class="d-bgds">
+        <div class="d-stars d-stars-6 d-px-box d-px-box-m-0" data-px=".5"></div>
+        <div class="d-stars d-stars-7 d-px-box d-px-box-m-1" data-px=".2"></div>
+        <div class="d-stars d-stars-8 d-px-box d-px-box-m-0" data-px=".5"></div>
+        <div class="d-stars d-stars-9 d-px-box d-px-box-m-1" data-px=".2"></div>
+        <div class="d-stars d-stars-10 d-px-box d-px-box-m-0" data-px=".5"></div>
+    </div>
+
+    <div class="custom-header">
+        <div class="custom-header-fixed">
+            <div class="d-grid">
+                <nav>
+                    <ul>
+                        <li><a href="{% url 'home' %}">{% trans 'Главная' %}</a></li>
+                        <li><a href="{% url 'about_journal' %}">{% trans 'О журнале' %}</a></li>
+                        <li><a href="{% url 'for_authors'%}">{% trans 'Авторам' %}</a></li>
+                        <li><a href="{% url 'article_releases' %}">{% trans 'Выпуски' %}</a></li>
+                        <li><a href="{% url 'news' %}">{% trans 'Новости' %}</a></li>
+                        <li><a href="{% url 'contacts' %}">{% trans 'Контакты' %}</a></li>
+                        <li>
+                            <div class="languages-switcher">
+                                <i class="ri-global-line"></i>
+                                <form action="{% url 'set_language' %}" method="post">{% csrf_token %}
+                                    <input name="next" type="hidden" value="{{ redirect_to }}">
+                                    <select name="language" onchange="this.form.submit()">
+                                        {% get_current_language as LANGUAGE_CODE %}
+                                        {% get_available_languages as LANGUAGES %}
+                                        {% get_language_info_list for LANGUAGES as languages %}
+                                        {% for language in languages %}
+
+                                        <option value="{{ language.code }}" {% if language.code == LANGUAGE_CODE %}
+                                                selected{% endif %}>
+                                            {{ language.name_local }}
+                                        </option>
+                                        {% endfor %}
+                                    </select>
+                                    <!--									<input type="submit" value="ОК">-->
+                                </form>
+                            </div>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+    <p id="burger">
+        <svg viewBox="0 0 100 80" width="40" height="40">
+            <rect width="100" height="20" rx="8"></rect>
+            <rect y="30" width="100" height="20" rx="8"></rect>
+            <rect y="60" width="100" height="20" rx="8"></rect>
+        </svg>
+    </p>
+
+
+    {% block page%} {% endblock %}
+
+    <footer id="d-footer">
+        <div class="d-grid d-white d-l">
+            <article>
+            <span class="cpy-text"
+            >{% trans '2022. Все права защищены. Дизайнер' %}
+                      <a href="https://asoi.kg/" class="font-weight-500">ASOI </a
+                      ></span
+            >
+
+            </article>
+
+            {% for s in social_media %}
+
+            <article class="d-ttu d-ha d-hb" style="margin: 0">
+                <a target="_blank" href="{{s.instagram}}">
+                    <img style="width: 35px" class="soc"
+                         src="data:image/png;base64,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">
+                </a>
+                <a target="_blank" href="{{s.whatsapp}}">
+                    <img style="width: 35px" class="soc"
+                         src="data:image/png;base64,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">
+                </a>
+                <a target="_blank" href="{{s.facebook}}">
+                    <img style="width: 35px" class="soc"
+                         src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAABmJLR0QA/wD/AP+gvaeTAAADYklEQVRoge2Yv2sUQRTHv2/vckn0iDEQU5gYtDCCnViLhaAgimKp2AjX2ohoZyGINlqaVvyBIiI2dkL+AUUsg4jkEBX0olESze08i7vszu7MvJ29W02EfdXdm3nzPm9mvjuzC5RWWmmlraeRq2Hk3IOjHNIsgO0E7noZ0U/NR4ZP78taInv82k/S4zlqb4K40brXeG7jDFwFcDu4DXBv8JwPntzwADAJplkXp7MAkJqMlycnvObzgZfiAYCYp1yYVSd/UfCstfcG70IEIK3AfwAPCCuQFqEb3iwyCZ+GZJAKwWoVUCGYFShabwKCCqha0+DlItwF/A14FWJzNcTZQ3tweN9O7J4cw3Ctg7C0/ButpRUcuHgfQWXAC14uICd8pBkBfmZiCI8uH8eObSNGttH6EKbGR+wzL2ylDA0UBA/GpkobDy8ds8Lbcibj3ZYpYoq2kgTPAjxAahVnDs5gemJLNnuGsNMmbqEYXhvcCu9OTmCwCnFk/y4jw6fFnzh97Slevv3c7c4gCgx453VBKqAoeACACrF3etzIceXOHF69/waq1eO+7A8PiFuoIHgArBRG64NGhhevF4CgGscnJs2mrVwFFAO/5qtVK8bIX74vp/ql4BOrYTdBA4D1dBXuNS54lwhDpTozmDqxI3jI8XIBfVzKeHUZHLa1duXIoaBWlhLwQbUGBDUveLmANHyOew2HbSw+Pi8PDaD15ELi/9W7c7j17A0MeKGGTBH3finLb/PNrwCtSdcmbNPEFZAvZWl4h7Bz2PyHVnfUJLz0KHWuwL+GDxXj3cfF+EUkAV+AiHVfYlDL9iIKsPXUzdjHytjvADB28gagzS9VKqDAH14uoEd4AAgGhhM+9euHY3xCMFhPxtvghRr8rtPCAaX3JUdB2cJOTogJ389JvIHhAc+TuCd4r5PUF74PERcBL94oWW/PBw9kbKHC4J0L4AdPQg3CdyEbfOyzwyd95qUsnUOO7+RxxwM5RFw0fFZ8J092vFxAYfB+ItZ95BWf8yTOgk+8FvqIkNEXPJDjJM76XkPSbCLA2InrxmOSiMy+zgdD7gKKgQcDVBvu7lXXAeX7VMtVQDHw8Tnghrd+AfGAB2QRNzcOPC/kLyDkBoDm34FnN3wkbA1eUcPJWVpppZW2rvYHKHvlr5AZFLMAAAAASUVORK5CYII=">
+                </a>
+
+            </article>
+            {% endfor %}
+
+        </div>
+    </footer>
+
+    <script src="{% static 'js/libs/jq.js' %}"></script>
+    <script src="{% static 'js/libs/jquery.validate.min.js' %}"></script>
+    <script src="{% static 'build/bundlec655.js' %}"></script>
+    <script defer src="{% static 'js/youtube.js' %}"></script>
+
+    <!-- Yandex.Metrika counter -->
+    <script type="text/javascript">
+    (function (d, w, c) {
+        (w[c] = w[c] || []).push(function () {
+            try {
+                w.yaCounter27522549 = new Ya.Metrika({
+                    id: 27522549,
+                    webvisor: true,
+                    clickmap: true,
+                    trackLinks: true,
+                    accurateTrackBounce: true
+                });
+            } catch (e) {
+            }
+        });
+
+        var n = d.getElementsByTagName("script")[0],
+            s = d.createElement("script"),
+            f = function () {
+                n.parentNode.insertBefore(s, n);
+            };
+        s.type = "text/javascript";
+        s.async = true;
+        s.src = (d.location.protocol == "https:" ? "https:" : "http:") + "//mc.yandex.ru/metrika/watch.js";
+
+        if (w.opera == "[object Opera]") {
+            d.addEventListener("DOMContentLoaded", f, false);
+        } else {
+            f();
+        }
+    })(document, window, "yandex_metrika_callbacks");
+
+    </script>
+    <noscript>
+        <div><img src="https://mc.yandex.ru/watch/27522549" style="position:absolute; left:-9999px;" alt=""/></div>
+    </noscript>
+
+    <div style="position:absolute; bottom:0; left:0">
+        <script type="text/javascript">
+        /* <![CDATA[ */
+        var google_conversion_id = 971566287;
+        var google_custom_params = window.google_tag_params;
+        var google_remarketing_only = true;
+        /* ]]> */
+
+        </script>
+
+        <script src="{% static 'js/main.js' %}" type="text/javascript"></script>
+        <script src="{% static 'js/swiper.js' %}" type="text/javascript"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.umd.js"></script>
+
+        <noscript>
+	        <span style="display:inline;">
+	        <img height="1" width="1" style="border-style:none;" alt=""
+                 src="../googleads.g.doubleclick.net/pagead/viewthroughconversion/971566287/indexa96a.html?value=0&amp;guid=ON&amp;script=0"/>
+	        </span>
+        </noscript>
+    </div>
+</div>
+</body>
+
+<!-- Mirrored from aic-qsoft.ru/ by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 05 May 2022 10:01:34 GMT -->
+</html>

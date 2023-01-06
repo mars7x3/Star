@@ -49,6 +49,8 @@ class Orders(models.Model):
     email = models.CharField(max_length=300)
     text = models.TextField()
     price = models.DecimalField(max_digits=15, decimal_places=2)
+    status = models.CharField(max_length=200, default='Новый')
+    comment = models.TextField(blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):

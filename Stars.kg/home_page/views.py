@@ -33,3 +33,5 @@ class ReactionView(viewsets.ReadOnlyModelViewSet):
 class AboutCompanyView(viewsets.ReadOnlyModelViewSet):
     queryset = AboutCompany.objects.all()
     serializer_class = AboutCompanySerializer
+
+

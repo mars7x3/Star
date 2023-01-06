@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from star_all.models import StarCategory, Star, StarComment, StarWork, ToastCategory, Toast
+from star_all.models import StarCategory, Star, StarComment, StarWork, ToastCategory, Toast, Orders
 
 
 class StarCategorySerializer(serializers.ModelSerializer):
@@ -53,3 +53,11 @@ class ToastSerializer(serializers.ModelSerializer):
     class Meta:
         model = Toast
         fields = '__all__'
+
+
+class OrderSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Orders
+        fields = '__all__'
+
+

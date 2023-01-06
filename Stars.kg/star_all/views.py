@@ -1,15 +1,32 @@
+from collections import OrderedDict
+
 from rest_framework import viewsets, status
 from rest_framework.decorators import action
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.response import Response
 from rest_framework.views import APIView
+from rest_framework.permissions import IsAuthenticated
 
 from .models import Star, StarWork, StarComment, StarCategory, Toast, ToastCategory, Orders
-from .serializers import StarCategorySerializer, StarSerializer, ToastCategorySerializer, ToastSerializer
+from .serializers import StarCategorySerializer, StarSerializer, ToastCategorySerializer, ToastSerializer, \
+    OrderSerializer
 
 
 class StarPaginationClass(PageNumberPagination):
     page_size = 15
+    # page_size_query_param = 'page_size'
+    # max_page_size = 50
+    #
+    # def get_paginated_response(self, data):
+    #     return Response(OrderedDict([
+    #         ('total_pages', self.page.paginator.num_pages),
+    #         ('page', self.page.number),
+    #         ('next', self.get_next_link()),
+    #         ('previous', self.get_previous_link()),
+    #         ('results', data),
+    #         ('results_count', len(data)),
+    #         ('total_results', self.page.paginator.count),
+    #     ]))
 
 
 class ToastPaginationClass(PageNumberPagination):
@@ -32,13 +49,17 @@ class StarView(viewsets.ReadOnlyModelViewSet):
         star = queryset
         title = request.query_params.get('title')
         if title:
-            kwargs['title__icontains'] = title
+            kwargs['name__icontains'] = title
+
+        category = request.query_params.get('category')
+        if category:
+            kwargs['category__slug'] = category
 
         star = star.filter(**kwargs)
 
-        serializer = StarSerializer(star if star.exists() else queryset, many=True)
-
-        return Response(serializer.data)
+        page = self.paginate_queryset(star)
+        serializer = self.get_serializer(page, many=True)
+        return self.get_paginated_response(serializer.data)
 
 
 class StarNameAndIdView(APIView):
@@ -63,15 +84,20 @@ class ToastView(viewsets.ReadOnlyModelViewSet):
     def search(self, request, **kwargs):
         queryset = self.get_queryset()
         toast = queryset
+        kwargs = {}
         title = request.query_params.get('title')
         if title:
             kwargs['title__icontains'] = title
 
+        category = request.query_params.get('category')
+        if category:
+            kwargs['category__slug'] = category
+
         toast = toast.filter(**kwargs)
 
-        serializer = ToastSerializer(toast if toast.exists() else queryset, many=True)
-
-        return Response(serializer.data)
+        page = self.paginate_queryset(toast)
+        serializer = self.get_serializer(page, many=True)
+        return self.get_paginated_response(serializer.data)
 
 
 class ToastNameAndIdView(APIView):
@@ -94,16 +120,7 @@ class OrderCreateView(APIView):
         return Response({"detail": "Success!"}, status=status.HTTP_200_OK)
 
 
-class StarSearchView(APIView):
-    def post(self, request):
-        data = Star.objects.filter(category__slug=request.data.get('category'))
-        serializer = StarSerializer(data, many=True)
-        return Response(serializer.data, status=status.HTTP_200_OK)
-
-
-class ToastSearchView(APIView):
-    def post(self, request):
-        data = Toast.objects.filter(category__slug=request.data.get('category'))
-        serializer = ToastSerializer(data, many=True)
-        return Response(serializer.data, status=status.HTTP_200_OK)
-
+class OrderListView(viewsets.ModelViewSet):
+    queryset = Orders.objects.all()
+    serializer_class = OrderSerializer
+    pagination_class = StarPaginationClass
